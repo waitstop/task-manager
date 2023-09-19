@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "variables.module";
+
+:root{
+    --text: 8, 3, 27;
+    --background: 217, 209, 250;
+    --primary: 28, 12, 100;
+    --secondary: 206, 197, 248;
+    --accent: 60, 25, 216;
+}
+
+:root[data-theme="dark"] {
+    --text: 217, 209, 250;
+    --background: 8, 3, 27;
+    --primary: 28, 12, 100;
+    --secondary: 9, 4, 33;
+    --accent: 168, 151, 243;
+}
+
+body {
+    color: rgb($text);
+    background: rgb($background);
+}

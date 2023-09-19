@@ -1,0 +1,13 @@
+$text: var(--text);
+$background: var(--background);
+$primary: var(--primary);
+$secondary: var(--secondary);
+$accent: var(--accent);
+
+:export{
+  text: $text;
+  background: $background;
+  primary: $primary;
+  secondary: $secondary;
+  accent: $accent;
+}
