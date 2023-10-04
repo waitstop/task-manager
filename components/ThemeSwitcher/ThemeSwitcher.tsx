@@ -4,18 +4,22 @@
 import variables from "@/app/variables.module.scss";
 import {useEffect, useState} from "react";
 import {motion} from "framer-motion"
-import MoonIcon from "@/public/icons/moon.svg";
-import SunIcon from "@/public/icons/sun.svg";
-import type {Theme, Props} from "./ThemeSwitcher.d"
+import type {Theme} from "./ThemeSwitcher.d"
+import {Moon, Sun} from "lucide-react";
 
 
-
-const ThemeSwitcher: React.FC<Props> = () => {
-
-    const [theme, setTheme] = useState<Theme>(localStorage.getItem("theme") as Theme)
+const ThemeSwitcher = () => {
+    const [theme, setTheme] = useState<Theme>('light')
 
     useEffect(() => {
-        if (typeof window === undefined || theme === undefined) return
+        if (typeof window !== 'undefined') {
+            const storedTheme = localStorage.getItem('theme') as Theme
+            if (storedTheme) setTheme(storedTheme)
+        }
+    }, [])
+
+    useEffect(() => {
+        if (typeof window === 'undefined') return
         localStorage.setItem("theme", theme)
         document.documentElement.setAttribute("data-theme", theme)
     }, [theme])
@@ -32,8 +36,8 @@ const ThemeSwitcher: React.FC<Props> = () => {
                             animate={theme === "dark" ? {rotate: 0} : {y: 0, opacity: 1}}
                 >
                     {theme === "light" ?
-                        <MoonIcon className={"h-auto w-10"} stroke={`rgb(${variables.text})`}/> :
-                        <SunIcon className={"h-auto w-10"} stroke={`rgb(${variables.text})`}/>
+                        <Moon className={"h-auto w-10"} strokeWidth={1.25} stroke={`rgb(${variables.text})`}/> :
+                        <Sun className={"h-auto w-10"} strokeWidth={1.25} stroke={`rgb(${variables.text})`}/>
                     }
                 </motion.div>
             </label>

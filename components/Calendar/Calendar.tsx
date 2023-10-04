@@ -6,13 +6,14 @@ import interactionPlugin from '@fullcalendar/interaction'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import ruLocale from "@fullcalendar/core/locales/ru"
 import {useEffect, useRef, useState} from "react";
-import {Calendar as TimePicker} from "@/components/ui/calendar";
+import {Daypicker} from "@/components/ui/daypicker";
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
-import {format} from "date-fns";
+import {format, add, sub} from "date-fns";
 import {Button} from "@/components/ui/button";
 import {ru} from "date-fns/locale";
 import FullCalendar from "@fullcalendar/react";
 import {Calendar as CalendarType} from "@fullcalendar/core";
+import {ChevronLeft, ChevronRight} from "lucide-react";
 
 const Calendar = (props: React.HTMLProps<any>) => {
     const calendarRef = useRef<any | null>(null)
@@ -29,23 +30,26 @@ const Calendar = (props: React.HTMLProps<any>) => {
         calendar.select(selectedDate)
     }, [selectedDate])
 
+
     return (
         <div className={`calendar ${props.className}`}>
 
-            <div className={"mb-6"}>
+            <div className={"mb-6 flex justify-between items-center"}>
+                <ChevronLeft className={"cursor-pointer"} onClick={()=>setSelectedDate(sub(selectedDate, {months: 1}))}/>
                 <Popover>
                     <PopoverTrigger asChild>
                         <Button variant={"border"}>
-                            {selectedDate ? format(selectedDate, "PPP", {locale: ru}) : <span>Pick a date</span>}
+                            {format(selectedDate, "d MMMM yyyy", {locale: ru})}
                         </Button>
                     </PopoverTrigger>
                     <PopoverContent>
-                        <TimePicker mode={"single"}
+                        <Daypicker mode={"single"}
                                     locale={ru}
                                     selected={selectedDate}
                                     onSelect={handleTimepicker}/>
                     </PopoverContent>
                 </Popover>
+                <ChevronRight className={"cursor-pointer"} onClick={()=>setSelectedDate(add(selectedDate, {months: 1}))}/>
             </div>
 
             <FullCalendar
