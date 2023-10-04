@@ -17,6 +17,13 @@ module.exports = {
             },
         },
         extend: {
+            colors: {
+              text: "rgba(var(--text), <alpha-value>)",
+              background: "rgba(var(--background), <alpha-value>)",
+              primary: "rgba(var(--primary), <alpha-value>)",
+              secondary: "rgba(var(--secondary), <alpha-value>)",
+              accent: "rgba(var(--accent), <alpha-value>)"
+            },
             keyframes: {
                 "accordion-down": {
                     from: {height: 0},
